@@ -7,3 +7,7 @@
 
 - https://bluehorn07.github.io/2024/04/10/istio-certificate-associate-exam-review/ (:kr:)
 - https://www.anyflow.net/sw-engineer/istio-certified-associate (:kr:)
+
+## Notes
+
+- [LFS144](notes/istio.lfs144.md) ![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation&labelColor=003778&link=https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
