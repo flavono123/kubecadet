@@ -1,7 +1,7 @@
 # Istio Certified Associate
 
-![Linux Foundation](https://img.shields.io/badge/LF-Catalog-003778.svg?logo=linux-foundation&labelColor=003778&link=https://training.linuxfoundation.org/certification/istio-certified-associate-ica/)
-![CNCF Catalog](https://img.shields.io/badge/CNCF-Catalog-231F20.svg?logo=cncf&labelColor=231F20&link=https://www.cncf.io/training/certification/ica/)
+![Linux Foundation](https://img.shields.io/badge/LF-Catalog-003778.svg?logo=linuxfoundation&link=https://training.linuxfoundation.org/certification/istio-certified-associate-ica/)
+![CNCF Catalog](https://img.shields.io/badge/CNCF-Catalog-231F20.svg?logo=cncf&link=https://www.cncf.io/training/certification/ica/)
 
 ## Reviews
 
@@ -10,4 +10,4 @@
 
 ## Notes
 
-- [LFS144](notes/istio.lfs144.md) ![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation&labelColor=003778&link=https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
+- [LFS144](notes/istio.lfs144.md) ![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation&link=https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
