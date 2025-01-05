@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1736057884730
+updated: 1736061923586
 created: 1735981566923
 ---
 
@@ -12,7 +12,7 @@ created: 1735981566923
 
 - [x] 1/4(sat): 2
 - [x] 1/4(sat): 3
-- [ ] 1/5(sun): 4
+- [x] 1/5(sun): 4
 - [ ] 1/6(mon): 5
 - [ ] 1/7(tue): 6
 - [ ] 1/8(wed): 7
@@ -22,7 +22,7 @@ created: 1735981566923
 
 ## 02. Overview
 
-### Learning Objectives
+### Learning Objectives(2)
 
 - what is the problem service mesh solve and how address
 - design and architecture of istio
@@ -56,7 +56,7 @@ edge gateway: in/egress to/from mesh; contour, emissary-ingress, in/egress gatew
 
 ## 03. Installing Istio
 
-### Learning Objectives
+### Learning Objectives(3)
 
 - helm chart
 - istio operator api
@@ -83,8 +83,33 @@ a profile is a custom resource of istio operator api itself
 
 helm: base(validating webhook, sa), istiod(controlplane, mutating webhook), gateway(in/egress gateway)
 
-handson: https://killercoda.com/lorenzo-g/scenario/istio-installation-istioctl
+### Hands-on(3)
+
+https://killercoda.com/lorenzo-g/scenario/istio-installation-istioctl
 
 - meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY: only outbound traffic to ServiceEntry is allowed; https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/#MeshConfig-OutboundTrafficPolicy-Mode
 
+## 04. Observability
 
+### Learning Objectives(4)
+
+- metrics collection and observability of istio
+- prometheus, promql, grafana, kiali
+- distributed tracing
+- (guess this is not exactly needed for the exam)
+
+monitoring; profiling and stack tracing in a single application, monolith -> observability; distributed tracing, metrics and logs over multiple micro services
+envoy sidecar collects metrics in a uniform way, no longer for each application/developer need to do that
+
+### Hands-on(4)
+
+no scenario, on playground: https://killercoda.com/lorenzo-g/scenario/playground
+
+- prometheus scrape endpoint = metrics collection endpoint
+- trace: end-to-end request-response flow; uid + spans
+- span: a component of trace(e.g. call a service from another)
+- tracing standards:
+  - w3c [trace context](https://www.w3.org/TR/trace-context/)(otel)
+  - x-b3(zipkin): trace id is propagated by this b3-header [b3-propagation](https://github.com/openzipkin/b3-propagation)
+  - trace id gen counts to envoy(automatically); for new trace, envoy sidecar assigns a new trace id
+  - propagating counts to app(configure): to propagate a trace id, application must set this context, headers, by including tracing client library
