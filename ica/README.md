@@ -10,4 +10,5 @@
 
 ## Notes
 
-- [LFS144](notes/istio.lfs144.md) ![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation&link=https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
+- [LFS144](../notes/istio.lfs144.md) ![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation&link=https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
+
