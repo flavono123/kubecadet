@@ -12,7 +12,7 @@ Guide to take all certification to be a (Golden) Kubestronaut.
 - Kubernetes and Cloud Native Associate (KCNA)
 - Kubernetes and Cloud Security Associate (KCSA)
 - Prometheus Certified Associate (PCA)
-- Istio Certified Associate (ICA) ![ICA](https://img.shields.io/badge/ICA-Prep-4466BB.svg?logo=istio&link=./ica)
+- Istio Certified Associate (ICA) [![ICA](https://img.shields.io/badge/ICA-Prep-4466BB.svg?logo=istio)](./ica/)
 - Cilium Certified Associate (CCA)
 - Certified Argo Project Associate (CAPA)
 - GitOps Certified Associate (CGOA)

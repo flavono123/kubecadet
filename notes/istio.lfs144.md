@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1736077016274
+updated: 1736169155829
 created: 1735981566923
 ---
 
@@ -14,7 +14,7 @@ created: 1735981566923
 - [x] 1/4(sat): 3
 - [x] 1/5(sun): 4
 - [x] 1/5(sun): 5
-- [ ] 1/6(mon): 6
+- [x] 1/6(mon): 6
 - [ ] 1/7(tue): 7
 - [ ] 1/8(wed): 8
 - [ ] 1/9(thu): 9
@@ -188,14 +188,13 @@ no scenario, on [killercoda playground](https://killercoda.com/lorenzo-g/scenari
 
 ### Hands-on(5)
 
-[killercoda playground]() with deleting bookinfo sample
+[killercoda playground](https://killercoda.com/ica-scenarios/scenario/playground) with deleting bookinfo sample
 
 ```sh
 alias i=istioctl
 k delete -f https://raw.githubusercontent.com/istio/istio/release-${ISTIO_MINOR_VERSION}/samples/bookinfo/platform/kube/bookinfo.yaml
 k get ns default -L istio-injection # check istio-injection label
 ```
-
 
 #### Gateways
 
@@ -207,3 +206,78 @@ k get ns default -L istio-injection # check istio-injection label
 #### Weight-Based Traffic Routing
 
 - set weights on vs.spec.http[*].route[*].weight
+
+## 06. Security
+
+### Learning Objectives(6)
+
+- authn, authz, access controls, identities in istio
+- mTLS, TLS config for envoy(sidecar proxies, gateways)
+- service, user authn
+- issuing certificates
+
+access control: a **principal** can do an **action** on an **object**.
+authn: [SPIFFE](https://spiffe.io/)(Secure Production Identity Framework For Everyone) X.509 certificate to a kubernetes service account(e.g. jwt token)
+
+- e.g. `spiffe://cluster.local/ns/default/sa/my-service-account`
+
+mTLS: both client and server should provide certificates to each other; in traditional TLS, only server does
+
+- after connection is established, a client(workload's) envoy proxy send to a server-side envoy proxy
+  - proxies does, not the workload
+- in handshaking, a caller check a secure naming, service account is authorized to the target service
+- `PeerAuthentication`: for inbound traffic, `DestinationRule`: for outbound traffic
+
+`PeerAuthentication` (`spec.mtls.mode`):
+
+- `PERMISSIVE`(default): allow both
+- `STRICT`: require mTLS
+- `DISABLE`: disable mTLS
+- `UNSET`: inherit from the parent(mesh, namespace), otherwise default(PERMISSIVE)
+
+`DestinationRule` (`spec.trafficPolicy.tls.mode`):
+
+- `ISTIO_MUTUAL`(default): mTLS by istio cert
+- `DISABLE`: disable TLS
+- `SIMPLE`: TLS(traditional) by server cert
+- `MUTUAL`: mTLS, use key and cert
+
+gatway tls: ingress(client outside, server mesh), egress(client mesh, server outside)
+
+- `PASSTHROUGH`: do not terminate TLS, forward to a virtualservice of mathcing SNI
+- `SIMPLE`: standard TLS
+- `MUTUAL`: mTLS, `caCertificates` or `credentialName` required
+- `AUTO_PASSTHROUGH`: no virtualservice(SNI service map) required, details are encoded in the SNI value
+- `ISTIO_MUTUAL`: mTLS, using istio certs
+
+authz: actions and objects of access control
+
+`AuthorizationPolicy`:
+
+- `from`(sources identities): principal(pa), request princial(ra),  namespace, ip block, remote ip block; each source is combined by AND
+- `to`(request operation): hosts, ports, methods, paths; comb AND
+- `when`(conditions): key as [istio attributes](https://istio.io/latest/docs/reference/config/security/conditions/)
+- `action`: `ALLOW`, `DENY`, `CUSTOM`(custom configured in MeshConfig), `AUDIT`(for auditing requests, do not allow or deny)
+  - default, allow all; but if ALLOW is configured, DENY all the others
+  - eval order: CUSTOM > DENY > ALLOW
+
+![flowchart](https://istio.io/latest/docs/concepts/security/authz-eval.svg)
+
+provisioning identity(up-to-date)
+
+![diagram](https://istio.io/latest/docs/concepts/security/id-prov.svg)
+
+- proxy > (SDS req) > istio-agent > (CSR) > istiod > (key,cert) > istio-agent > (cached key,cert) > proxy
+- iterate over key rotation
+- a proxy only do SDS API call, istio-agent do actual things
+
+### Hands-on(6)
+
+[killercoda playground](https://killercoda.com/ica-scenarios/scenario/playground) with deleting bookinfo sample
+
+```sh
+alias i=istioctl
+k delete -f https://raw.githubusercontent.com/istio/istio/release-${ISTIO_MINOR_VERSION}/samples/bookinfo/platform/kube/bookinfo.yaml
+k delete gw bookinfo-gateway
+k get ns default -L istio-injection # check istio-injection label
+```
