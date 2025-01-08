@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1736169155829
+updated: 1736299042164
 created: 1735981566923
 ---
 
@@ -15,7 +15,7 @@ created: 1735981566923
 - [x] 1/5(sun): 4
 - [x] 1/5(sun): 5
 - [x] 1/6(mon): 6
-- [ ] 1/7(tue): 7
+- [x] 1/7(tue): 7
 - [ ] 1/8(wed): 8
 - [ ] 1/9(thu): 9
 - [ ] 1/10(fri): 10
@@ -64,7 +64,6 @@ edge gateway: in/egress to/from mesh; contour, emissary-ingress, in/egress gatew
 
 configuration profiles: [doc](https://istio.io/latest/docs/setup/additional-setup/config-profiles/) is up to date, no `istioctl profile list` command
 
-
 | Component | default | demo | minimal | remote | empty | preview | ambient |
 |-----------|---------|------|---------|--------|-------|---------|----------|
 | **Core components** | | | | | | | |
@@ -85,9 +84,9 @@ helm: base(validating webhook, sa), istiod(controlplane, mutating webhook), gate
 
 ### Hands-on(3)
 
-https://killercoda.com/lorenzo-g/scenario/istio-installation-istioctl
+[killercoda installation scenario](https://killercoda.com/lorenzo-g/scenario/istio-installation-istioctl)
 
-- meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY: only outbound traffic to ServiceEntry is allowed; https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/#MeshConfig-OutboundTrafficPolicy-Mode
+- meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY: only outbound traffic to ServiceEntry is allowed; [api](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/#MeshConfig-OutboundTrafficPolicy-Mode)
 
 ## 04. Observability
 
@@ -281,3 +280,39 @@ k delete -f https://raw.githubusercontent.com/istio/istio/release-${ISTIO_MINOR_
 k delete gw bookinfo-gateway
 k get ns default -L istio-injection # check istio-injection label
 ```
+
+## 07. Extending the Mesh
+
+### Learning Objectives(7)
+
+- envoy, `EnvoyFilter`, Wasm Plugins and `WasmPlugin`
+- json files: listners(what) -> routes(where) -> clusters(how) -> endpoints(can receive)
+- listeners: ip + port(named network locations)
+  - 0.0.0.0:15006 - inbound
+  - 0.0.0.0:15001 - outbound
+- envoy filters
+  - filter chain: \<request\> (listener) ->  filter -> fileter -> filter -> (service)
+  - listener filters: L4(e.g. TLS inspector fileter, if connection is TLS encrypted, extract TLS info)
+  - network filters: deal with TCP packets(HTTP connection manager filter(HCM), rate limit filter, redis proxy filter, mongo proxy, connection limit filter, [all list](https://www.envoyproxy.io/docs/envoy/latest/configuration/listeners/network_filters/network_filters))
+  - HTTP filters: L7(e.g. HTTP filter - optionally created by HCM)
+- routes: the last of filter chain should be a route filter
+- clusters: a group of upstream(server) hosts, similar to kube svc
+- endpoints: a part of a cluster(ip address, hostname)
+- inspecting: `istioctl proxy-config <listeners|routes|cluster|endpoints> ...`
+- `EnvoyFilter`
+  - `applyTo`: LISTENER, NETWORK_FILTER, HTTP_FILTER, VIRTUAL_HOST, ... [api](https://istio.io/latest/docs/reference/config/networking/envoy-filter/#EnvoyFilter-ApplyTo)
+  - `match`: specify a more exact location
+    - `context`: SIDECAR_INBOUND, SIDECAR_OUTBOUND, GATEWAY, ANY
+    - `proxy`: proxy's properties match
+    - `listener`: listener attributes match(port, name, filters in chain, ...)
+    - `routeConfiguration`: route configuration attributes match(port name, number, gw name, virtual host name, ...)
+    - `cluster`: cluster attributes match(name, ...)
+  - `patch`:
+    - `operation`: ADD, REMOVE, MERGE [api](https://istio.io/latest/docs/reference/config/networking/envoy-filter/#EnvoyFilter-Patch-Operation)
+    - `value`: an actual patch, yaml
+- custom filters: native c++ api, lua filters, wasm filters
+- WASM:  a portable binary executed in a VM (.wasm) > `WasmPlugin` from istio 1.12(patched by `EnvoyFilter` before)
+- SKIP `WasmPlugin`
+  - not covered in the exam; actually this chapter, including filters, is not
+  - tinygo + go sdk in the course is not recommended anymore
+
