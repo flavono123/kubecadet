@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1736299042164
+updated: 1736989660784
 created: 1735981566923
 ---
 
@@ -16,9 +16,9 @@ created: 1735981566923
 - [x] 1/5(sun): 5
 - [x] 1/6(mon): 6
 - [x] 1/7(tue): 7
-- [ ] 1/8(wed): 8
-- [ ] 1/9(thu): 9
-- [ ] 1/10(fri): 10
+- [ ] 1/12(sun): 8
+- [ ] 1/14(tue): 10
+- [ ] 1/14(mon): 9
 
 ## 02. Overview
 
@@ -315,4 +315,32 @@ k get ns default -L istio-injection # check istio-injection label
 - SKIP `WasmPlugin`
   - not covered in the exam; actually this chapter, including filters, is not
   - tinygo + go sdk in the course is not recommended anymore
+
+## 08. Advanced Topics
+
+### Learning Objectives(8)
+
+- [sidecar](https://istio.io/latest/docs/reference/config/networking/sidecar/) resources
+- onboarding vm to mesh
+- istio multicluster deployment scenarios
+
+- sidecar: if not set, all sidecar proxy is conn
+
+### Hands-on(8)
+
+[killercoda playground](https://killercoda.com/ica-scenarios/scenario/playground) 'with' bookinfo sample
+
+```sh
+apt-get install -y bash-completion
+eval $(istioctl completion bash)
+alias i=istioctl
+complete -F __start_istioctl i
+
+k delete -f https://raw.githubusercontent.com/istio/istio/release-${ISTIO_MINOR_VERSION}/samples/bookinfo/platform/kube/bookinfo.yaml
+k delete gw bookinfo-gateway
+k get ns default -L istio-injection # check istio-injection label
+```
+
+## 10. Course Completion
+
 
