@@ -11,3 +11,5 @@
 ## My Prep
 
 - [LFS144](../notes/istio.lfs144.md) [![LF144 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation)](https://training.linuxfoundation.org/courses/introduction-to-istio-lfs144)
+- [killercoda](../notes/istio.killercoda.md) [![killercoda](https://img.shields.io/badge/Killercoda-hands_on-181717.svg?logo=kubernetes)](https://killercoda.com/ica-scenarios)
+- [isaac88](../notes/istio.isaac88.md) [![isaac88/istio-certified-associate-ica-exam](https://img.shields.io/badge/isaac88-ica_exam-181717.svg?logo=github)](https://github.com/isaac88/istio-certified-associate-ica-exam/tree/main)

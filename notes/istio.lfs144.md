@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1736989660784
+updated: 1737377501106
 created: 1735981566923
 ---
 
@@ -343,4 +343,5 @@ k get ns default -L istio-injection # check istio-injection label
 
 ## 10. Course Completion
 
-
+- outlier detection = circuit breaker is passive health check; removing or ejecting unhealthy endpoints, which are OBSERVED, from load balancing pool
+- endpoints: route to "clusters", and a cluster is a group of endpoints

@@ -1,14 +1,13 @@
 ---
 id: ntc2bx910r85cy4q3thlipb
-title: Killersh
+title: Killercoda
 desc: ''
-updated: 1737192729227
+updated: 1737625265177
 created: 1736989815631
 ---
 
 ## [Lorenzo Gironi](https://killercoda.com/lorenzo-g)
 
-- [ ] Istio Playground
 - [x] Traffic Management - Request Routing
 - [x] Traffic Management - Fault Injection
 - [x] Traffic Management - Traffic Shifting
@@ -26,6 +25,14 @@ created: 1736989815631
 - [x] Security - Authorization - HTTP traffic
 - [x] Security - Authorization - JWT Token
 - [x] Istio Installation using istioctl
+
+## [ICA Certification](https://killercoda.com/ica-scenarios)
+
+- [x] Istio Installation, Upgrade & Configuration
+- [ ] Traffic Management
+- [ ] Securing Workloads
+- [ ] Resilience and Fault Injection
+- [ ] Advanced Scenarios
 
 ---
 
@@ -84,9 +91,7 @@ k get po,svc
 - copy the spec field name, find in the doc, there are many manifest examples to copy
 - many of fields are objects, such as Port; port.number, and Percentage; percentage.value, check the error message when apply is failed
 
----
-
-## TODO on doc
+## in a nutshell by resources
 
 - `VirtualService`
   - routing

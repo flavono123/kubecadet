@@ -4,3 +4,4 @@ build
 seeds
 .next
 pods/service-connections
+istio-1.18.2/
