@@ -6,6 +6,8 @@ And if you solve, you'll gonna be the one of glorious [Kubestronauts](https://ww
 
 Guide to take all certification to be a (Golden) Kubestronaut.
 
+## My Preps
+
 - [ ] Certified Kubernetes Administrator (CKA)
 - [ ] Certified Kubernetes Application Developer (CKAD)
 - [ ] Certified Kubernetes Security Specialist (CKS)
@@ -19,3 +21,7 @@ Guide to take all certification to be a (Golden) Kubestronaut.
 - [ ] Certified Backstage Associate (CBA)
 - [ ] OpenTelemetry Certified Associate (OTCA)
 - [ ] Kyverno Certified Associate (KCA)
+
+## My Certs
+
+[![ica-badge](./assets/ica-istio-certified-associate.png)](https://www.credly.com/badges/d95ddbda-f504-4b5b-8a11-3b2f68c3ea1c/public_url)
