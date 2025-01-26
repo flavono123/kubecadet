@@ -5,8 +5,8 @@
 
 ## Reviews from Graduates
 
-- https://bluehorn07.github.io/2024/04/10/istio-certificate-associate-exam-review/ (:kr:)
-- https://www.anyflow.net/sw-engineer/istio-certified-associate (:kr:)
+- [Istio Certified Associate 시험 후기 ⭐️](https://bluehorn07.github.io/2024/04/10/istio-certificate-associate-exam-review/)(🇰🇷)
+- [ICA(Istio Certified Associate) 취득 후기](https://www.anyflow.net/sw-engineer/istio-certified-associate)(🇰🇷)
 
 ## My Prep
 
