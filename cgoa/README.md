@@ -9,4 +9,4 @@
 
 ## My Prep
 
-- [LFS169](../notes/istio.lfs144.md) [![LFS169 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation)](https://trainingportal.linuxfoundation.org/courses/introduction-to-gitops-lfs169)
+- [LFS169](../notes/cgoa.lfs169.md) [![LFS169 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation)](https://trainingportal.linuxfoundation.org/courses/introduction-to-gitops-lfs169)
