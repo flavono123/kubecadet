@@ -1,5 +1,7 @@
 # Istio Certified Associate
 
+![banner](https://www.cncf.io/wp-content/uploads/2024/03/CNCF-Certification_-ICA.png)
+
 [![Linux Foundation](https://img.shields.io/badge/LF-Catalog-003778.svg?logo=linuxfoundation)](https://training.linuxfoundation.org/certification/istio-certified-associate-ica/)
 [![CNCF Catalog](https://img.shields.io/badge/CNCF-Catalog-231F20.svg?logo=cncf)](https://www.cncf.io/training/certification/ica/)
 

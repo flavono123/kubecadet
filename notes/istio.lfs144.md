@@ -2,7 +2,7 @@
 id: 23h17up1bhg323nhuc4m7sx
 title: Lfs144
 desc: ''
-updated: 1737377501106
+updated: 1738379610859
 created: 1735981566923
 ---
 
@@ -17,8 +17,8 @@ created: 1735981566923
 - [x] 1/6(mon): 6
 - [x] 1/7(tue): 7
 - [ ] 1/12(sun): 8
-- [ ] 1/14(tue): 10
-- [ ] 1/14(mon): 9
+- [ ] 1/14(tue): 9
+- [x] 1/14(tue): 10
 
 ## 02. Overview
 

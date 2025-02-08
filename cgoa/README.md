@@ -1,5 +1,7 @@
 # Certified Argo Project Associate
 
+![banner](https://www.cncf.io/wp-content/uploads/2024/02/image-43.png)
+
 [![Linux Foundation](https://img.shields.io/badge/LF-Catalog-003778.svg?logo=linuxfoundation)](https://training.linuxfoundation.org/certification/certified-gitops-associate-cgoa/)
 [![CNCF Catalog](https://img.shields.io/badge/CNCF-Catalog-231F20.svg?logo=cncf)](https://www.cncf.io/training/certification/cgoa/)
 
@@ -9,4 +11,4 @@
 
 ## My Prep
 
-- [LFS169](../notes/cgoa.lfs169.md) [![LFS169 Course](https://img.shields.io/badge/LF-Free_Course-003778.svg?logo=linux-foundation)](https://trainingportal.linuxfoundation.org/courses/introduction-to-gitops-lfs169)
+- [otkd](https://github.com/otkd/CGOA-Study-Guide) [![otkd/CGOA-Study-Guide](https://img.shields.io/badge/otkd-CGOA_Study_Guide-181717.svg?logo=github)](https://github.com/otkd/CGOA-Study-Guide)
