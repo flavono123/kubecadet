@@ -11,4 +11,4 @@
 
 ## My Prep
 
-TBD
+- [LFS256](../notes/capa.lfs256.md) [![LFS256 Course](https://img.shields.io/badge/LF-Paid_Course-003778.svg?logo=linux-foundation)](https://trainingportal.linuxfoundation.org/courses/devops-and-workflow-management-with-argo-lfs256)
