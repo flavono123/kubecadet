@@ -8,6 +8,7 @@
 ## Reviews from Graduates
 
 - [Certified Argo Project Associate (CAPA) 자격증 취득 후기](https://blog.jyje.live/posts/dev/ops/get-certified-argo-project-associate)(🇰🇷)
+- [Certified Argo Project Associate (CAPA) Exam Study Guide](https://paulyu.dev/article/capa-study-guide/)
 
 ## My Prep
 
