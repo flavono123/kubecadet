@@ -2,7 +2,7 @@
 id: hrrz5jmtnbwdzptwacyigdx
 title: Lfs256
 desc: ''
-updated: 1739689522600
+updated: 1739803252086
 created: 1738998769740
 ---
 
@@ -31,15 +31,18 @@ created: 1738998769740
     - [Workflow](#workflow)
     - [Outputs(Artifacts)](#outputsartifacts)
     - [Workflow Templates](#workflow-templates)
-    - [Cluster Workflow Templates](#cluster-workflow-templates)
-    - [Cron Workflows](#cron-workflows)
+    - [Cluster Workflow Templates(v2.8+)](#cluster-workflow-templatesv28)
+    - [Cron Workflows(v2.5+)](#cron-workflowsv25)
+  - [Architecture](#architecture)
+    - [Containers of Pod(a step or dag task)](#containers-of-poda-step-or-dag-task)
+  - [Use cases](#use-cases)
 
 
 ## Milestones
 
 - [x] day 1 01. Course Introduction & 02. Introduction to Argo - 2/10(mon)
 - [x] day 2 03. Argo CD  - 2/15(sat)
-- [ ] day 3 04. Argo Workflows 1 - 2/16(sun)
+- [x] day 3 04. Argo Workflows 1 - 2/16(sun)
 - [ ] day 4 04. Argo Workflows 2 - 2/17(mon)
 - [ ] day 5 05. Argo Rollouts - 2/18(tue)
 - [ ] day 6 06. Argo Events - 2/19(wed)
@@ -229,7 +232,39 @@ ref. [security doc](https://argo-cd.readthedocs.io/en/stable/operator-manual/sec
 - referencing by `templates.{invocator}.templateRef` of a workflow
 - creating a workflow with `workflowTemplateRef` would be merged with a referenced workflow template (v2.9+)
 
-#### Cluster Workflow Templates
+#### [Cluster Workflow Templates(v2.8+)](https://argo-workflows.readthedocs.io/en/latest/cluster-workflow-templates/#cluster-workflow-templates)
 
+- a cluster scoped workflow template, such as ClusterRole
+- for referencing, `templateRef.clusterScope: true` is required for (specname)
+- for creating a workflow, `workflowTemplateRef.clusterScope: true` is required
 
-#### Cron Workflows
+#### [Cron Workflows(v2.5+)](https://argo-workflows.readthedocs.io/en/latest/cron-workflows/#cron-workflows)
+
+- running workflows on schedule by cron expression, mimic of CronJob
+- `workflowSpec` and `workflowMetadata` are allowed, different from a cronjob using `jobTemplate`.
+- [options](https://argo-workflows.readthedocs.io/en/latest/cron-workflows/#cronworkflow-options)
+  - difference with CronJob:
+    - `schedules` is for a list of cron expressions
+    - supporting `timezone`
+  - unique features:
+    - `stopStrategy.expression` (nil) - if expression is evaluated to false, stop the workflow
+    - `when` (None) - additional condition for running a workflow on cron schedules
+
+### [Architecture](https://argo-workflows.readthedocs.io/en/latest/architecture/)
+
+- argo server: the api server for workflow submission, monitoring and management
+- workflow controller: manage lifecycle of workflows, watch CRs
+
+#### Containers of Pod(a step or dag task)
+
+- init: InitContainer, fetching artifcats, parameters and making them available for main container
+- main: runs the Image that the user indicated, where the argoexec utility is volume mounted and serves as the main command which calls the configured Command as a sub-process
+- wait: cleanup, saving off artifacts and parameters
+
+### Use cases
+
+- data processing
+- ml projects
+- ci/cd
+- batch processing
+
