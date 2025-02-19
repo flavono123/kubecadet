@@ -2,7 +2,7 @@
 id: hrrz5jmtnbwdzptwacyigdx
 title: Lfs256
 desc: ''
-updated: 1739803252086
+updated: 1739927017191
 created: 1738998769740
 ---
 
@@ -36,6 +36,21 @@ created: 1738998769740
   - [Architecture](#architecture)
     - [Containers of Pod(a step or dag task)](#containers-of-poda-step-or-dag-task)
   - [Use cases](#use-cases)
+- [05. Argo Rollouts](#05-argo-rollouts)
+  - [Progressive Delivery](#progressive-delivery)
+  - [Deployment Strategies](#deployment-strategies)
+    - [Benefits of strategies](#benefits-of-strategies)
+    - [Use cases and supports](#use-cases-and-supports)
+  - [Argo Rollouts](#argo-rollouts)
+    - [Architecture](#architecture-1)
+    - [Features](#features)
+    - [Migrating existing Deployments to Rollouts](#migrating-existing-deployments-to-rollouts)
+    - [Analysis](#analysis)
+    - [Experiments](#experiments)
+- [06. Argo Events](#06-argo-events)
+  - [Objectives Keywords; Argo Events](#objectives-keywords-argo-events)
+  - [Event Driven Architecture](#event-driven-architecture)
+    - [Components; Argo Events](#components-argo-events)
 
 
 ## Milestones
@@ -43,9 +58,9 @@ created: 1738998769740
 - [x] day 1 01. Course Introduction & 02. Introduction to Argo - 2/10(mon)
 - [x] day 2 03. Argo CD  - 2/15(sat)
 - [x] day 3 04. Argo Workflows 1 - 2/16(sun)
-- [ ] day 4 04. Argo Workflows 2 - 2/17(mon)
-- [ ] day 5 05. Argo Rollouts - 2/18(tue)
-- [ ] day 6 06. Argo Events - 2/19(wed)
+- [x] day 4 04. Argo Workflows 2 - 2/17(mon)
+- [x] day 5 05. Argo Rollouts - 2/18(tue)
+- [x] day 6 06. Argo Events - 2/18(tue)
 
 ## 01. Course Introduction
 
@@ -268,3 +283,111 @@ ref. [security doc](https://argo-cd.readthedocs.io/en/stable/operator-manual/sec
 - ci/cd
 - batch processing
 
+## 05. Argo Rollouts
+
+### Progressive Delivery
+
+- canary releases
+- feature flags
+- experiments & a/b testing
+- phased rollouts
+
+### Deployment Strategies
+
+- recreate/fixed
+- rolling update
+- blue/green
+- canary
+
+#### Benefits of strategies
+
+- risk mitigation; safe, smooth and efficient
+- user experience
+- feedback and testing
+- rollback capabilities
+
+#### Use cases and supports
+
+- fixed(k8s); for downtime acceptable recreation
+- rolling update(k8s); for common stateless
+- blue/green(argo rollouts)
+  - double resource costs are required
+  - for quick rollback
+  - for stateful workloads like with connections such as websockets
+    - new conn is gradually routed from blue to green
+- canary(argo rollouts)
+  - for a partial rollout
+  - for experimentations for subset of users, such as a/b testing
+  - lower cost than blue/green
+
+### Argo Rollouts
+
+#### [Architecture](https://argoproj.github.io/argo-rollouts/architecture/#architecture)
+
+- Argo Rollouts Controller
+- Argo Rollout Resource; CRD deploy + more deployments strategies(blue/green, canary)
+- Ingress; supports traffic providers(istio, ...)
+- Service
+- ReplicaSet; version
+- AnalysisTemplate and AnalysisRun
+  - an optional feature for monitoring rollouts
+  - automated promotions and rollbacks by defined metrics and expected results
+- Metric Providers; datadog, prometheus
+
+#### Features
+
+- blue-green deployments
+- canary deployments
+- advanced traffic routing; intergrates with ingress controllers and service meshes
+- integration with metric providers
+- automated decision making; promotes or rollback based on the success or failure of defined metrics
+
+#### Migrating existing Deployments to Rollouts
+
+> provide a deployment to `spec.workloadRef` over `spec.template`(PodTemplateSpec)
+
+- deploys and rollouts are reconciled by for each controller
+  - so the pods for referenced deployment are not managed by rollout
+- rollout native vs. ref
+  - ref;
+    - `status.workloadObservedGeneration` would be for storing referenced deployment's status
+    - `rollout.argoproj.io/workload-generation` would be annotated to figure out drifts of deploy
+    - a referencing is a dependency
+  - native; preferred sure to work with argo rollouts(coupling?)
+- [converting inversed direction](https://argoproj.github.io/argo-rollouts/migrating/#convert-rollout-to-deployment)
+- [spec](https://argoproj.github.io/argo-rollouts/features/specification/)
+- [migrating, converting](https://argoproj.github.io/argo-rollouts/migrating/)
+- ingress, svc
+- pod-template-hash; use the label as selector of service to identify version and switch traffic
+- stable, canart replicasets; as rollout spec, set distribution of traffic
+
+#### [Analysis](https://argo-rollouts.readthedocs.io/en/stable/features/analysis/#analysis-progressive-delivery)
+
+> observing metrics and make a decision could be automated
+
+- AnalysisTemplate; define metrics to query and the condition for success or failures. parameterized by input values.
+- AnalysisRun; an instance of AnalysisTemplate, query metrics and make a decision. providers are prometheus, datadog, Job, ...
+
+#### [Experiments](https://argoproj.github.io/argo-rollouts/features/experiment/#experiment-crd)
+
+> a temporary enviroment for testing, eval two or more versions
+
+## 06. Argo Events
+
+### Objectives Keywords; Argo Events
+
+- CRDs; EventSource, Sensor, EventBus, Trigger
+- integration with external systems such as webhooks or message queues
+
+### Event Driven Architecture
+
+- more dynamic and fliud model over traditional linear, request-response model
+- responsiveness and adaptability are matters in a containerized cluster
+- k8s Event resources is core
+
+#### Components; Argo Events
+
+- [EventSource](https://argoproj.github.io/argo-events/concepts/event_source/); where events generated such as webhooks, messages.
+- [Sensor](https://argoproj.github.io/argo-events/concepts/sensor/); event listeners
+- [EventBus](https://argoproj.github.io/argo-events/concepts/eventbus/); backbone for event distribution. for delivery events from sources to sensors
+- [Trigger](https://argoproj.github.io/argo-events/concepts/trigger/); responds to events detected by sensors.
