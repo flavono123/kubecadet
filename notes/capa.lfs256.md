@@ -2,7 +2,7 @@
 id: hrrz5jmtnbwdzptwacyigdx
 title: Lfs256
 desc: ''
-updated: 1739927017191
+updated: 1739928170473
 created: 1738998769740
 ---
 
@@ -54,7 +54,7 @@ created: 1738998769740
 
 
 ## Milestones
-
+****
 - [x] day 1 01. Course Introduction & 02. Introduction to Argo - 2/10(mon)
 - [x] day 2 03. Argo CD  - 2/15(sat)
 - [x] day 3 04. Argo Workflows 1 - 2/16(sun)
