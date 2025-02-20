@@ -2,7 +2,7 @@
 id: gqsr69tq4uqy97i9v02vfk0
 title: Gptproject
 desc: ''
-updated: 1740028987533
+updated: 1740053847863
 created: 1740028313298
 ---
 
@@ -21,6 +21,8 @@ created: 1740028313298
 ### Instructions(Prompt)
 
 [!NOTE]
+
+> eventually, this prompt is not good for mocking the real exam questions
 
 ```plaintext
 generate questions for mock capa exam
