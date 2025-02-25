@@ -6,6 +6,8 @@ And if you solve, you'll gonna be the one of glorious [Kubestronauts](https://ww
 
 Guide to take all certification to be a (Golden) Kubestronaut.
 
+[Curriculums of All erts](https://github.com/cncf/curriculum)
+
 ## My Preps
 
 - [ ] Certified Kubernetes Administrator (CKA)

@@ -8,7 +8,9 @@
 ## Reviews from Graduates
 
 - [Get GitOps Fully Certified: A Practical Guide to Passing CAPA and CGOA](https://medium.com/@talyitzhak/get-gitops-fully-certified-a-practical-guide-to-passing-capa-and-cgoa-6376cef139a7)(not read actually, medium member-only)
+- [otkd](https://github.com/otkd/CGOA-Study-Guide) [![otkd/CGOA-Study-Guide](https://img.shields.io/badge/otkd-CGOA_Study_Guide-181717.svg?logo=github)](https://github.com/otkd/CGOA-Study-Guide)
+- [hrittikhere](https://github.com/hrittikhere/CGOA-training) [![hrittikhere/CGOA-training](https://img.shields.io/badge/hrittikhere-CGOA_training-181717.svg?logo=github)](https://github.com/hrittikhere/CGOA-training)
 
 ## My Prep
 
-- [otkd](https://github.com/otkd/CGOA-Study-Guide) [![otkd/CGOA-Study-Guide](https://img.shields.io/badge/otkd-CGOA_Study_Guide-181717.svg?logo=github)](https://github.com/otkd/CGOA-Study-Guide)
+- [with a GPT project](../notes/cgoa.gptproject.md)
