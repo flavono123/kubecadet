@@ -28,3 +28,4 @@ Guide to take all certification to be a (Golden) Kubestronaut.
 
 [![ica-badge](./assets/ica-istio-certified-associate.png)](https://www.credly.com/badges/d95ddbda-f504-4b5b-8a11-3b2f68c3ea1c/public_url)
 [![capa-badge](./assets/capa-certified-argo-project-associate.png)](https://www.credly.com/badges/0d44547d-76b8-4524-9d77-2da88e9f71aa/public_url)
+[![cgoa-badge](./assets/cgoa-certified-gitops-project-associate.png)](https://www.credly.com/badges/d5c0c5eb-8ede-4605-a876-0b5ad82abbef/public_url)
