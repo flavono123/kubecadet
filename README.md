@@ -2,11 +2,11 @@
 
 > Kubeston, we have 'problems'
 
-And if you solve, you'll gonna be the one of glorious [Kubestronauts](https://www.cncf.io/training/kubestronaut/).
+> [!NOTE]
+> And if you solve, you'll gonna be the one of glorious [Kubestronauts](https://www.cncf.io/training/kubestronaut/).
+> Guide to take all certification to be a (Golden) Kubestronaut.
 
-Guide to take all certification to be a (Golden) Kubestronaut.
-
-[Curriculums of All erts](https://github.com/cncf/curriculum)
+[Curriculums of All certs](https://github.com/cncf/curriculum)
 
 ## My Preps
 
