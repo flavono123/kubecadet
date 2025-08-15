@@ -1,0 +1,17 @@
+groups:
+  - name: node-alerts
+    rules:
+      - alert: NodeDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"
+          description: "Target {{ $labels.instance }} has been unreachable for more than 1 minute."
+  - name: node-rules
+    interval: 30s
+    rules:
+      - record: job:node_cpu_usage:rate5m
+        expr: sum(rate(node_cpu_seconds_total{mode!="idle"}[5m])) by (job)
+
