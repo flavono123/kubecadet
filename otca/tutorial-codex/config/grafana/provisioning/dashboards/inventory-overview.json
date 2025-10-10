@@ -1,0 +1,36 @@
+{
+  "id": null,
+  "uid": "otca-lab-inventory",
+  "title": "OTCA Inventory Overview",
+  "tags": ["otca", "lab"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Inventory Requests (per status)",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 9},
+      "targets": [
+        {
+          "expr": "sum(rate(lab_inventory_requests_total[5m])) by (status)",
+          "legendFormat": "{{status}}",
+          "datasource": {"type": "prometheus", "uid": "Prometheus"}
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "P90 Inventory Latency",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 9},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.9, sum(rate(lab_inventory_latency_bucket[5m])) by (le))",
+          "legendFormat": "p90",
+          "datasource": {"type": "prometheus", "uid": "Prometheus"}
+        }
+      ]
+    }
+  ]
+}
