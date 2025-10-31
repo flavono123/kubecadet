@@ -1,0 +1,40 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kyverno-policy-admin
+rules:
+# 🔥 시험 포인트: Kyverno Policy 권한
+- apiGroups: ["kyverno.io"]
+  resources: 
+    - policies
+    - clusterpolicies
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+# PolicyReport는 읽기만
+- apiGroups: ["wgpolicyk8s.io"]
+  resources:
+    - policyreports
+    - clusterpolicyreports
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kyverno-policy-viewer
+rules:
+- apiGroups: ["kyverno.io"]
+  resources: ["policies", "clusterpolicies"]
+  verbs: ["get", "list", "watch"]  # 읽기만!
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: policy-admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kyverno-policy-admin
+subjects:
+- kind: User
+  name: policy-admin
+  apiGroup: rbac.authorization.k8s.io

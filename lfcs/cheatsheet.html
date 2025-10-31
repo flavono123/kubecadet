@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LFCS 시험 완벽 정리</title>
+    <style>
+      @media print {
+        body {
+          margin: 0;
+          padding: 10px;
+          font-size: 9pt;
+        }
+        .page-break {
+          page-break-before: always;
+        }
+        h1 {
+          font-size: 16pt;
+          margin: 5px 0;
+        }
+        h2 {
+          font-size: 12pt;
+          margin: 4px 0;
+        }
+        h3 {
+          font-size: 10pt;
+          margin: 3px 0;
+        }
+      }
+
+      body {
+        font-family: "Courier New", monospace;
+        line-height: 1.3;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+        font-size: 10px;
+      }
+
+      h1 {
+        background: #2c3e50;
+        color: white;
+        padding: 8px;
+        margin: 10px 0 5px 0;
+        font-size: 16px;
+      }
+
+      h2 {
+        background: #34495e;
+        color: white;
+        padding: 5px;
+        margin: 8px 0 4px 0;
+        font-size: 13px;
+      }
+
+      h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #2c3e50;
+        padding-bottom: 2px;
+        margin: 6px 0 3px 0;
+        font-size: 11px;
+      }
+
+      pre,
+      code {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 3px;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 3px 0;
+        padding: 5px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 5px 0;
+        font-size: 9px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 3px;
+        text-align: left;
+      }
+
+      th {
+        background: #34495e;
+        color: white;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .section {
+        margin-bottom: 8px;
+      }
+
+      .highlight {
+        background: #ffffcc;
+        padding: 2px 4px;
+      }
+
+      .tip {
+        background: #e8f5e9;
+        border-left: 3px solid #4caf50;
+        padding: 4px;
+        margin: 4px 0;
+      }
+
+      .warning {
+        background: #ffebee;
+        border-left: 3px solid #f44336;
+        padding: 4px;
+        margin: 4px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎓 LFCS 시험 완벽 정리 치트시트</h1>
+
+    <div class="two-col">
+      <div>
+        <h2>📊 시스템 정보</h2>
+        <pre>
+# 커널
+uname -r              # 커널 버전
+sysctl parameter      # 커널 파라미터
+
+# 타임존
+timedatectl show -p Timezone --value
+cat /etc/timezone
+        </pre>
+
+        <h2>⏰ Cron</h2>
+        <pre>
+# System-wide
+/etc/crontab
+/etc/cron.d/
+
+# 사용자
+crontab -e                    # 편집
+sudo crontab -u user -e       # 특정 유저
+
+# 시간 형식: 분 시 일 월 요일
+15 11 * * 1,4        # 월,목 11:15
+15 11 * * 1-4        # 월~목 11:15
+30 20 * * *          # 매일 20:30
+        </pre>
+
+        <h2>⏱️ NTP (systemd-timesyncd)</h2>
+        <pre>
+# /etc/systemd/timesyncd.conf
+[Time]
+NTP=0.pool.ntp.org 1.pool.ntp.org
+FallbackNTP=ntp.ubuntu.com
+PollIntervalMaxSec=1000
+ConnectionRetrySec=20
+
+systemctl restart systemd-timesyncd
+man timesyncd.conf  # 옵션 확인!
+        </pre>
+
+        <h2>👥 사용자/그룹</h2>
+        <pre>
+# 생성
+useradd -m -d /path -g primary -G sec -s /bin/bash user
+groupadd groupname
+passwd username
+
+# 수정
+usermod -g group user        # primary 그룹
+usermod -m -d /new/home user # 홈 이동
+usermod -G grp1,grp2 user    # secondary
+chown -R user:group /path
+
+# 확인
+id username
+grep user /etc/passwd
+        </pre>
+
+        <h2>🔐 sudo</h2>
+        <pre>
+# 편집
+sudo visudo
+sudo visudo -f /etc/sudoers.d/file
+sudo EDITOR=vim visudo
+
+# 형식
+user  ALL=(ALL) NOPASSWD: /path/cmd
+%grp  ALL=(ALL) NOPASSWD: ALL
+
+# 확인
+sudo -l -U username
+        </pre>
+
+        <h2>🔒 리소스 제한</h2>
+        <pre>
+# /etc/security/limits.conf
+# domain  type  item       value
+jackie    hard  nproc      100
+@ops      -     maxlogins  1
+*         hard  nofile     1024
+
+# 확인
+ulimit -Su  # soft
+ulimit -Hu  # hard
+ulimit -a   # 전체
+        </pre>
+
+        <h2>🔍 find</h2>
+        <pre>
+# 시간
+find . -newermt '2020-01-01'    # 이후
+find . ! -newermt '2020-01-01'  # 이전
+find . -mtime +30               # 30일 전
+find . -mtime -7                # 7일 내
+
+# 크기
+find . -size -3k   # 3KB 미만
+find . -size +10k  # 10KB 초과
+
+# 권한
+find . -perm 777   # 정확히 777
+
+# 실행
+find . -type f -name "*.log" -delete
+find . -size +10k -exec mv {} dir/ \;
+find . -maxdepth 1 -type f ...
+        </pre>
+      </div>
+
+      <div>
+        <h2>📝 grep / sed / awk</h2>
+        <pre>
+# grep (필터링)
+grep 'pattern' file
+grep -E 'regex' file           # 확장 정규식
+grep 'p1' f | grep 'p2'        # AND
+
+# sed (교체)
+sed 's/old/new/g' file         # 모두 교체
+sed -i 's/old/new/g' file      # 파일 수정
+sed 's/^start.*end$/rep/' f    # 정규식
+
+# awk (필드 처리)
+awk '{print $1, $3}' file
+awk '/pat1/ && /pat2/' file    # AND
+awk '$1 > 100' file            # 조건
+awk -F: '{print $1}' file      # 구분자
+
+# nginx 로그 예시
+awk '$7 ~ /^"GET \/app/ && $(NF-1) ~ /"bot"/' log
+        </pre>
+
+        <h2>💾 파일시스템</h2>
+        <pre>
+# 포맷
+mkfs.ext4 /dev/vdb
+mkfs.xfs /dev/vdc
+
+# 마운트
+mkdir -p /mnt/point
+mount /dev/vdb /mnt/point
+
+# /etc/fstab (영구)
+/dev/vdb  /mnt/point  ext4  defaults  0  2
+
+# 확인
+df -h
+lsblk
+mount | grep vdb
+        </pre>
+
+        <h2>📦 LVM</h2>
+        <pre>
+# PV → VG → LV → FS
+
+# Physical Volume
+pvcreate /dev/vdh
+pvs
+pvdisplay /dev/vdh         # Allocated PE=0 확인!
+pvmove /dev/vdh            # 데이터 이동
+
+# Volume Group
+vgcreate vol2 /dev/vdh
+vgs
+vgreduce vol1 /dev/vdh     # PV 제거
+vgextend vol2 /dev/vdi     # PV 추가
+
+# Logical Volume
+lvcreate -L 50M -n p1 vol2
+lvs
+lvextend -L +10G /dev/vol2/p1
+lvremove /dev/vol2/p1
+
+# 포맷
+mkfs.ext4 /dev/vol2/p1
+        </pre>
+
+        <h2>📦 압축</h2>
+        <pre>
+# 압축 해제
+tar -xzf file.tar.gz    # gzip
+tar -xjf file.tar.bz2   # bzip2
+tar -xJf file.tar.xz    # xz
+
+# 내용 보기
+tar -tzf file.tar.gz | sort > list.txt
+tar -tjf file.tar.bz2 | sort > list.txt
+
+# 재압축 (bz2→gz, 최고 압축)
+bzcat file.tar.bz2 | gzip -9 > file.tar.gz
+        </pre>
+
+        <h2>🌐 iptables</h2>
+        <pre>
+# 포트 차단
+iptables -A INPUT -p tcp --dport 5000 -j DROP
+
+# 리다이렉트
+iptables -t nat -A PREROUTING -p tcp \
+  --dport 6000 -j REDIRECT --to-port 6001
+
+# 특정 IP만 허용
+iptables -A INPUT -p tcp -s 192.168.10.80 \
+  --dport 6002 -j ACCEPT
+iptables -A INPUT -p tcp --dport 6002 -j DROP
+
+# 나가는 트래픽 차단
+iptables -A OUTPUT -d 192.168.10.70 -j DROP
+
+# 확인 및 저장
+iptables -L -n -v
+iptables-save > /etc/iptables/rules.v4
+        </pre>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="two-col">
+      <div>
+        <h2>🔐 SSH 서버</h2>
+        <pre>
+# /etc/ssh/sshd_config
+
+# 전역 설정
+X11Forwarding no
+PasswordAuthentication no
+Banner /etc/ssh/sshd-banner
+
+# 사용자별 (Match 블록)
+Match User marta
+    PasswordAuthentication yes
+    Banner /etc/ssh/sshd-banner
+
+Match User cilla
+    Banner /etc/ssh/sshd-banner
+
+Match all  # 필수!
+
+# 테스트 및 재시작
+sshd -t
+systemctl restart ssh      # Debian/Ubuntu
+systemctl restart sshd     # RHEL/CentOS
+
+# 확인
+sudo -l -U username
+        </pre>
+
+        <h2>🌐 원격 파일시스템</h2>
+        <h3>SSHFS</h3>
+        <pre>
+apt-get install sshfs
+sed -i 's/#user_allow_other/user_allow_other/' /etc/fuse.conf
+sshfs -o allow_other,rw user@host:/path /mount/point
+        </pre>
+
+        <h3>NFS 서버</h3>
+        <pre>
+# /etc/exports
+/nfs/share 192.168.10.0/24(ro,sync,no_subtree_check)
+
+exportfs -a
+systemctl restart nfs-server
+showmount -e
+        </pre>
+
+        <h3>NFS 클라이언트</h3>
+        <pre>
+mount -t nfs server:/nfs/share /mount/point
+
+# /etc/fstab
+server:/nfs/share /mnt nfs ro,_netdev 0 0
+        </pre>
+
+        <h2>🔧 Nginx 로드밸런서</h2>
+        <pre>
+# /etc/nginx/conf.d/lb.conf
+
+upstream backend_pool {
+    server 192.168.10.60:1111;
+    server 192.168.10.60:2222;
+    # random;  # 랜덤 알고리즘
+}
+
+server {
+    listen 8000;
+    location / {
+        proxy_pass http://backend_pool;
+    }
+}
+
+server {
+    listen 8001;
+    location / {
+        proxy_pass http://192.168.10.60:2222/special;
+    }
+}
+
+# 테스트 및 재시작
+nginx -t
+systemctl restart nginx
+        </pre>
+      </div>
+
+      <div>
+        <h2>📦 소스 컴파일</h2>
+        <pre>
+# 압축 해제
+tar -xjf links-2.14.tar.bz2
+cd links-2.14
+
+# 옵션 확인 (중요!)
+./configure --help
+./configure --help | grep -i prefix
+./configure --help | grep -i ipv6
+cat README
+cat INSTALL
+
+# 컴파일 및 설치
+./configure --prefix=/usr --disable-ipv6
+make
+make install
+
+# 확인
+which links
+links --version
+        </pre>
+
+        <h2>🔧 vim 에디터 설정</h2>
+        <pre>
+# ~/.bashrc에 추가
+export EDITOR=vim
+export VISUAL=vim
+export SUDO_EDITOR=vim
+
+source ~/.bashrc
+
+# Git
+git config --global core.editor "vim"
+
+# 시스템 전체 (Debian/Ubuntu)
+update-alternatives --config editor
+        </pre>
+
+        <h2>📂 중요 파일 위치</h2>
+        <pre>
+# 시스템
+/etc/passwd              # 사용자
+/etc/group               # 그룹
+/etc/fstab               # 마운트
+/etc/crontab             # System cron
+/etc/security/limits.conf # 리소스 제한
+
+# 네트워크
+/etc/ssh/sshd_config     # SSH 서버
+/etc/exports             # NFS
+/etc/systemd/timesyncd.conf # NTP
+
+# 서비스
+/etc/nginx/conf.d/       # Nginx
+/etc/sudoers             # sudo
+/etc/sudoers.d/          # sudo 추가
+
+# 로그
+/var/log/syslog
+/var/log/auth.log
+/var/log/nginx/
+        </pre>
+
+        <h2>🔧 트러블슈팅</h2>
+        <pre>
+# 서비스 문제
+systemctl status service
+journalctl -u service
+tail -f /var/log/syslog
+
+# 문법 체크
+nginx -t
+sshd -t
+visudo -c
+
+# 포트 확인
+netstat -tlnp | grep :8000
+ss -tlnp | grep :8000
+lsof -i :8000
+
+# 권한
+ls -la /path
+chown -R user:group /path
+chmod 755 /path
+        </pre>
+      </div>
+    </div>
+
+    <h2>⚡ 시험 팁</h2>
+    <div class="two-col">
+      <div class="tip">
+        <strong>✅ DO (해야 할 것)</strong>
+        <ul style="margin: 5px 0; padding-left: 20px">
+          <li>항상 백업: <code>cp file file.backup</code></li>
+          <li>문법 체크: <code>nginx -t</code>, <code>sshd -t</code></li>
+          <li>man page 활용: <code>man command</code></li>
+          <li>현재 상태 확인 먼저</li>
+          <li>새 터미널에서 테스트</li>
+          <li>요구사항에 없으면 추가 X</li>
+        </ul>
+      </div>
+
+      <div class="warning">
+        <strong>❌ DON'T (하지 말 것)</strong>
+        <ul style="margin: 5px 0; padding-left: 20px">
+          <li><code>/etc/passwd</code> 직접 편집 (usermod 사용)</li>
+          <li><code>vi /etc/sudoers</code> (visudo 사용)</li>
+          <li>재시작 전 문법 체크 안 함</li>
+          <li>현재 SSH 세션만으로 테스트</li>
+          <li>과도한 설정</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>📋 핵심 명령어 요약 테이블</h2>
+    <table>
+      <tr>
+        <th>카테고리</th>
+        <th>명령어</th>
+        <th>용도</th>
+        <th>핵심 옵션</th>
+      </tr>
+      <tr>
+        <td>시스템</td>
+        <td>uname, sysctl, timedatectl</td>
+        <td>시스템 정보</td>
+        <td>-r, -a, show</td>
+      </tr>
+      <tr>
+        <td>사용자</td>
+        <td>useradd, usermod, passwd</td>
+        <td>사용자 관리</td>
+        <td>-m, -g, -G, -s</td>
+      </tr>
+      <tr>
+        <td>검색</td>
+        <td>find, grep, sed, awk</td>
+        <td>파일/텍스트</td>
+        <td>-name, -size, -exec, -E</td>
+      </tr>
+      <tr>
+        <td>디스크</td>
+        <td>mkfs, mount, pvcreate, vgcreate, lvcreate</td>
+        <td>파일시스템/LVM</td>
+        <td>-L, -n, -g</td>
+      </tr>
+      <tr>
+        <td>네트워크</td>
+        <td>iptables, sshfs, exportfs</td>
+        <td>방화벽/원격FS</td>
+        <td>-A, -t nat, -o</td>
+      </tr>
+      <tr>
+        <td>서비스</td>
+        <td>systemctl, nginx, sshd</td>
+        <td>서비스 관리</td>
+        <td>restart, status, -t</td>
+      </tr>
+    </table>
+
+    <div
+      style="
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        background: #2c3e50;
+        color: white;
+      "
+    >
+      <strong>🎯 Good Luck on LFCS! 🚀</strong><br />
+      <em>Ctrl+P로 PDF 저장 | 여백: 최소 | 배경 그래픽: 켜기</em>
+    </div>
+  </body>
+</html>

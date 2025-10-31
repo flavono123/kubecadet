@@ -10,21 +10,21 @@
 
 ## My Preps
 
-- [ ] Certified Kubernetes Administrator (CKA)
-- [ ] Certified Kubernetes Application Developer (CKAD)
-- [ ] Certified Kubernetes Security Specialist (CKS)
-- [ ] Kubernetes and Cloud Native Associate (KCNA)
-- [ ] Kubernetes and Cloud Security Associate (KCSA)
-- [ ] Linux Foundation Certified System Administrator (LFCS)
+- [ ] Certified Kubernetes Administrator (CKA) -- jan 2026
+- [ ] Certified Kubernetes Application Developer (CKAD) -- jan 2026
+- [ ] Certified Kubernetes Security Specialist (CKS) -- jan 2026
+- [ ] Kubernetes and Cloud Native Associate (KCNA) -- jan 2026
+- [ ] Kubernetes and Cloud Security Associate (KCSA) -- jan 2026
+- [x] Linux Foundation Certified System Administrator (LFCS) [![LFCS](https://img.shields.io/badge/LFCS-Prep-003778.svg?logo=linuxfoundation)](./lfcs/)
 - [x] Prometheus Certified Associate (PCA) [![PCA](https://img.shields.io/badge/PCA-Prep-E6522C.svg?logo=prometheus)](./pca/)
 - [x] Istio Certified Associate (ICA) [![ICA](https://img.shields.io/badge/ICA-Prep-4466BB.svg?logo=istio)](./ica/)
 - [x] Cilium Certified Associate (CCA) [![CCA](https://img.shields.io/badge/CCA-Prep-F8C517.svg?logo=cilium)](./cca/)
 - [x] Certified Argo Project Associate (CAPA) [![CAPA](https://img.shields.io/badge/CAPA-Prep-EF7B4D.svg?logo=argo)](./capa/)
 - [x] GitOps Certified Associate (CGOA) [![CGOA](https://img.shields.io/badge/CGOA-Prep-F05032.svg?logo=git)](./cgoa/)
-- [ ] Certified Backstage Associate (CBA)
+- [ ] Certified Backstage Associate (CBA) -- nov
 - [x] OpenTelemetry Certified Associate (OTCA) [![OTCA](https://img.shields.io/badge/OTCA-Prep-000000.svg?logo=opentelemetry)](./otca/)
-- [ ] Kyverno Certified Associate (KCA) -- oct late
-- [ ] Certified Cloud Native Platform Engineering Associate (CNPA) -- oct late
+- [ ] Kyverno Certified Associate (KCA) -- [![KCA](https://img.shields.io/badge/KCA-Prep-183A61.svg?logo=kyverno)](./kca/)
+- [ ] Certified Cloud Native Platform Engineering Associate (CNPA) -- nov maybe?
 
 ## My Certs
 
@@ -34,3 +34,4 @@
 [![pca-badge](./assets/pca-prometheus-certified-associate.png)](https://www.credly.com/badges/0d44547d-76b8-4524-9d77-2da88e9f71aa/public_url)
 [![cca-badge](./assets/cca-cilium-certified-associate.png)](https://www.credly.com/badges/bb9291ec-b18e-471c-8072-71a8f7e6230d/public_url)
 [![otca-badge](./assets/otca-opentelemetry-certified-associate.png)](https://www.credly.com/badges/c8050094-a62d-49de-8dbc-103f343ed366/public_url)
+[![lfcs-badge](./assets/lfcs-linux-foundation-certified-systems-administrator.2.png)](https://www.credly.com/badges/8832d593-11c1-42eb-9f24-984958b9ed23/public_url)
