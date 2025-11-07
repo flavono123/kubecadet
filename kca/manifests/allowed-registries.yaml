@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: allowed-base-images
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: check-registry
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "승인된 레지스트리만 사용 가능: docker.io, gcr.io, ghcr.io"
+      anyPattern:
+      - spec:
+          containers:
+          - image: "docker.io/*"
+      - spec:
+          containers:
+          - image: "gcr.io/*"
+      - spec:
+          containers:
+          - image: "ghcr.io/*"
+      - spec:
+          containers:
+          - image: "nginx:*"  # docker.io 생략 가능

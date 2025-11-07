@@ -21,10 +21,10 @@
 - [x] Cilium Certified Associate (CCA) [![CCA](https://img.shields.io/badge/CCA-Prep-F8C517.svg?logo=cilium)](./cca/)
 - [x] Certified Argo Project Associate (CAPA) [![CAPA](https://img.shields.io/badge/CAPA-Prep-EF7B4D.svg?logo=argo)](./capa/)
 - [x] GitOps Certified Associate (CGOA) [![CGOA](https://img.shields.io/badge/CGOA-Prep-F05032.svg?logo=git)](./cgoa/)
-- [ ] Certified Backstage Associate (CBA) -- nov
+- [ ] Certified Backstage Associate (CBA) -- nov late
 - [x] OpenTelemetry Certified Associate (OTCA) [![OTCA](https://img.shields.io/badge/OTCA-Prep-000000.svg?logo=opentelemetry)](./otca/)
-- [ ] Kyverno Certified Associate (KCA) -- [![KCA](https://img.shields.io/badge/KCA-Prep-183A61.svg?logo=kyverno)](./kca/)
-- [ ] Certified Cloud Native Platform Engineering Associate (CNPA) -- nov maybe?
+- [x] Kyverno Certified Associate (KCA) -- [![KCA](https://img.shields.io/badge/KCA-Prep-183A61.svg?logo=kyverno)](./kca/)
+- [ ] Certified Cloud Native Platform Engineering Associate (CNPA) -- nov mid
 
 ## My Certs
 
@@ -35,3 +35,4 @@
 [![cca-badge](./assets/cca-cilium-certified-associate.png)](https://www.credly.com/badges/bb9291ec-b18e-471c-8072-71a8f7e6230d/public_url)
 [![otca-badge](./assets/otca-opentelemetry-certified-associate.png)](https://www.credly.com/badges/c8050094-a62d-49de-8dbc-103f343ed366/public_url)
 [![lfcs-badge](./assets/lfcs-linux-foundation-certified-systems-administrator.2.png)](https://www.credly.com/badges/8832d593-11c1-42eb-9f24-984958b9ed23/public_url)
+[![kca-badge](./assets/kca-kyverno-certified-associate.png)](https://www.credly.com/badges/02233cf4-07f6-4d85-841c-6df98e37dbf1/public_url)
